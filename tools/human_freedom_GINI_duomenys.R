@@ -1,22 +1,10 @@
----
-title: "Duomenų paruošimas"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 ## Bibliotekos
 
-```{r message=FALSE}
 library(tidyr)
 library(dplyr)
-```
 
-## Duomenų pakrovimas
+# Pirmiausiai pakrauname Human Freedom Index ir WB GINI indekso duomenis
 
-Pirmiausiai pakrauname Human Freedom Index ir WB GINI indekso duomenis
-```{r}
 load_europe <- function(data_dir, ...) {
   laisve_path <- file.path(data_dir, "human_freedom_index", "laisve1.csv")
   gini_path <- file.path(data_dir, "human_freedom_index", "GINI.csv")
@@ -38,7 +26,6 @@ load_europe <- function(data_dir, ...) {
   #Sujungiame lenteles
   europa<-left_join(laisve, gini_long, by=c("ISO_code"="Country.Code", "year" = "metai"))
   
-  return(europa)
+  return(list("europa" = europa, "gini" = gini))
 
 }
-```
