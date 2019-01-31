@@ -1,0 +1,198 @@
+---
+title: "Spalvos"
+output: github_document
+---
+## Duomenų pakrovimas
+
+Pakraunam Higienos instituto atviruosius duomenis apie Lietuvoje gyvenančių žmonių sveikatos rodiklius.
+
+```{r message=FALSE}
+source("tools/lietuvos_sveikatos_duomenys.R")
+res<-load_lietuva("data")
+LT = res$LT
+LT1 = res$LT1
+```
+
+## Reikalingos R bibliotekos
+
+```{r message=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+library(RColorBrewer)
+library(scales)
+library(ggthemes)
+library(wesanderson)
+library(viridis)
+library(ggsci)
+
+```
+
+#populiarios RColorBrewer paletes
+
+Pavyzdžiai
+
+Paired
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_brewer(palette = "Paired")
+```
+
+Set4
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_brewer(palette = "Set4")
+```
+
+Set3
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_brewer(palette = "Set3")
+```
+
+Set2
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_brewer(palette = "Set2")
+```
+
+Set1
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_brewer(palette = "Set1")
+
+```
+
+Accent
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_brewer(palette = "Accent")
+```
+
+
+kitos paletės:
+
+* scale_fill_brewer(palette = "Dark2") # scale_color_brewer(palette = "Dark2")
+* scale_fill_brewer(palette = "Spectral") # scale_color_brewer(palette = "Spectral")
+
+
+## ggsci
+
+Gražiai užvadintos spalvines paletes:
+
+* scale_color_npg() # scale_fill_npg()
+* scale_color_aaas() # scale_fill_aaas()
+* scale_color_lancet() # scale_fill_lancet()
+* scale_color_nejm() # scale_fill_nejm()
+* scale_color_jama() # scale_fill_jama()
+* scale_color_ucscgb() # scale_fill_ucscgb()
+* scale_color_uchicago() #  scale_fill_uchicago()
+* scale_color_startrek() #  scale_fill_startrek() 
+* scale_color_tron() # scale_fill_tron()
+* scale_color_futurama() # scale_fill_futurama()
+* scale_color_rickandmorty() # scale_fill_rickandmorty()
+* scale_color_locuszoom() # scale_fill_locuszoom()
+
+
+Patikę pavyzdžiai:
+scale_color_igv() # scale_fill_igv()
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_igv()
+```
+
+scale_color_simpsons() # scale_fill_simpsons()
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_simpsons()
+```
+
+scale_color_d3() # scale_fill_d3()
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_jco()
+```
+
+
+scale_color_jco() # scale_fill_jco()
+
+```{r warning = FALSE}
+LT %>% filter(ID %in% c("62":"71"))%>% 
+  ggplot(aes(x=metai, y=mirtingumas, colour = regionas, group = regionas)) +
+  geom_line(size=1.3)+
+  theme(legend.position="bottom", legend.key = element_rect(colour = NA, fill = NA))+
+  theme(panel.background = element_rect(fill = "white", colour = "white"))+
+  scale_color_d3()
+```
+
+
+## Wes Andersono
+
+Yra net Wes Andersono filmų spalvinės paletės, bet tik apytiksliai 5 spalvom:
+
+scale_fill_manual(values = wes_palette("Royal2"))
+
+* (values = wes_palette("Royal2"))
+* (values = wes_palette("BottleRocket1"))
+* (values = wes_palette("BottleRocket2"))
+* (values = wes_palette("Rushmore1"))
+* (values = wes_palette("Rushmore"))
+* (values = wes_palette("Zissou1"))
+* (values = wes_palette("Darjeeling2"))
+* (values = wes_palette("Chevalier1"))
+* (values = wes_palette("FantasticFox1"))
+* (values = wes_palette("Moonrise1"))
+* (values = wes_palette("Moonrise2"))
+* (values = wes_palette("Moonrise3"))
+* (values = wes_palette("Cavalcanti1"))
+* (values = wes_palette("GrandBudapest1"))
+* (values = wes_palette("GrandBudapest2"))
+* (values = wes_palette("IsleofDogs1"))
+* (values = wes_palette("IsleofDogs2"))
+* (values = wes_palette("Darjeeling1"))
