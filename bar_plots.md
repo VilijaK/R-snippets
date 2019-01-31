@@ -13,7 +13,7 @@ gini = res$gini
 
 Grafikams naudosime Human Freedom Index duomenis. Duomenis vaizduosime stulpeliniais grafikais.
 
-Pagindinė biblioteka ggplot.
+Pagrindinė biblioteka ggplot2.
 
 Bibliotekos
 -----------
@@ -178,9 +178,11 @@ europa %>% filter(year==2016) %>%
   ggplot(aes(x=reorder(countries, pf_ss), y=pf_ss, fill=pf_ss)) +
   geom_bar(stat="identity") +
   theme_light()+
-  theme(axis.title.y=element_text(angle=0)) + 
+  theme(axis.title.y=element_blank()) + 
   theme(axis.text.x = element_text(angle=45, vjust = 1, hjust=1))+
   theme(axis.text.x = element_text(angle=-20))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())+
   coord_polar()+
   labs(title = "Saugumas Europoje",
        fill="Saugumo indeksas",
@@ -219,4 +221,4 @@ europa %>% filter(year==2016) %>%
              labeller = labeller(region = region.labs))
 ```
 
-![](bar_plots_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](bar_plots_files/figure-markdown_github/pressure-1.png)

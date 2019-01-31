@@ -55,7 +55,7 @@ centroids1 <- apyl %>%
 
 ## Vizualinių ir skaitinių duomenų sujungimas
 
-Skaitiniai duomenys yra LT ir LT1 dataframes. LT rodikliai buvo renkami 2001-20017 m, o LT1 renkami 2014-2017m.
+Skaitiniai duomenys yra LT ir LT1 data frames. LT rodikliai buvo renkami 2001-20017 m, o LT1 renkami 2014-2017m.
 
 LT data frame yra šie rodikliai:
 
@@ -120,7 +120,7 @@ pvz2<-zemelapissavivLT%>%filter(metai==2017)
 
 ```
 
-Pavaizduosime skyrybų dažnumą 2017 m.pagal apylinkes
+Pavaizduosime skyrybų dažnumą 2017 metais pagal apylinkes
 
 ```{r warning = FALSE}
 ggplot(pvz1)  +
@@ -139,10 +139,11 @@ ggplot(pvz1)  +
 
 ```
 
-Kaip skyrybos keitės apylinkėse skirtingais metais?
+Kaip skyrybų dažnumas keitėsi apylinkėse?
 
 ```{r warning = FALSE}
-ggplot(zemelapisaplLT)  +
+zemelapisaplLT%>%filter(!is.na(metai))%>%
+ggplot()  +
   geom_sf(aes(fill = istuokos))  + 
   geom_text(aes(X, Y, label = regionas), data = centroidsapl, size = 1.5, color = 'black')+
   facet_wrap(~metai)+
@@ -158,7 +159,7 @@ ggplot(zemelapisaplLT)  +
 ```
 
 
-Tuomet pavaizduosime skyrybų dažnumą 2017 m.pagal savivaldybes
+Tuomet pavaizduosime skyrybų dažnumą 2017 metais pagal savivaldybes
 
 ```{r warning = FALSE}
 ggplot(pvz2)  +
@@ -176,10 +177,11 @@ ggplot(pvz2)  +
 ```
 
 p.s. spalvų variantai žemėlapiams:
-scale_fill_viridis()
-scale_fill_viridis(option = "inferno")
-scale_fill_viridis(option = "cividis")
-scale_fill_gradient(low='gray80', high='midnightblue')
+
+* scale_fill_viridis()
+* scale_fill_viridis(option = "inferno")
+* scale_fill_viridis(option = "cividis")
+* scale_fill_gradient(low='gray80', high='midnightblue')
 
 ## žemėlapio kaip korio, vaizdavimas
 
@@ -198,7 +200,7 @@ clean <- function(shape) {
 df_hex_clean<- clean(df_hex)
 ```
 
-Vaizdavimas:
+Vaizdavimas
 
 ```{r warning = FALSE}
 ggplot(df_hex_clean) +
@@ -209,7 +211,7 @@ ggplot(df_hex_clean) +
   scale_fill_viridis(name="Skyrybos")
 ```
 
-Apylinkėms duomenys:
+Duomenys apylinkėms
 ```{r warning = FALSE}
 tmp<-as(pvz1, 'Spatial')
 tmp1 <- calculate_grid(shape = tmp, grid_type = "hexagonal", seed = 7)
@@ -223,7 +225,7 @@ clean <- function(shape) {
 df_hex_clean<- clean(df_hex)
 ```
 
-Vaizdavimas:
+Vaizdavimas
 ```{r warning = FALSE, fig.hight=14}
 ggplot(df_hex_clean) +
   geom_polygon(aes(x = long, y = lat, fill = istuokos, group = group)) +
@@ -239,13 +241,13 @@ ggplot(df_hex_clean) +
 
 Duomenų paruošimas. Pažiūrėsim, kiek vaikų nesimokė mokyklose 2017 metais pagal apylinkes 
 
-```{r warning = FALSE, fig.width=14}
-vaflius<-LT1%>%filter(metai==2017, ID %in% c("62":"71"))
+```{r warning = FALSE}
+vaflius<-LT1%>%filter(metai=="2017", ID %in% c("62":"71"))
 vafliusproc <- vaflius$vaikai_nesimokantys_mok
 names(vafliusproc) <- vaflius$regionas
 ```
 
-Vaizdavimas:
+Vaizdavimas
 
 ```{r pressure, echo=FALSE}
 waffle(vafliusproc, rows = 20,

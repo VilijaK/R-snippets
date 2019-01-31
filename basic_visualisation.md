@@ -41,13 +41,13 @@ Taip, vizualizuojant duomenis dažniausiai naudojamas ggplot2. Duomenų atvaizda
 
 esquisser() funkcija paleidžia interaktyvų langą, kuriame formuojamas grafikas.
 
-Jei grafikas jau sudarytas ggplot2 pagalba, tačiau norima patobulinti jo apipavidalininimą, galima išviesti ggedit funkciją.
+Jei grafikas jau sudarytas ggplot2 pagalba, tačiau norima patobulinti jo apipavidalinimą, galima iškviesti ggedit funkciją.
 
 Pvz.:
 
 ggedit(grafikas)
 
-Toliau tęsime su ggplot. Pavaizduosime Human Freedom Index duomenis. Pažiūresime, kaip Europos šalyse yra įvertintas valstybinio aparato efektyvumas. Šiais grafikais iliustruosime pagrindinius grafiko nuastatymus.
+Toliau tęsime su ggplot. Pavaizduosime Human Freedom Index duomenis. Pažiūrėsime, kaip Europos šalyse yra įvertintas valstybinio aparato efektyvumas. Šiais grafikais iliustruosime pagrindinius grafiko nustatymus.
 
 Kaip keisti pavadinimus?
 ------------------------
@@ -61,7 +61,7 @@ ggplot(europa,
            y = ef_government,
            color=reorder(countries, ef_government))) +                 #reorder naudojamas susikirstymui
        geom_point(size=2) +
-       labs(title = "Valstybinio aparato efektyvumas..?",              #pavadinimai, kai be pavadinimo = NULL
+       labs(title = "Valstybinio aparato efektyvumas",              #pavadinimai, kai be pavadinimo = NULL
            x = NULL,
            y = "Valstybinio aparato efektyvumas",
            caption = "*didesnis įvertis atspindi daugiau laisvės",
@@ -73,8 +73,6 @@ ggplot(europa,
        geom_vline(xintercept=2016, color="black", size=1, alpha=0.2)+  #tiesė, kertanti x ašį
        facet_wrap(~region, labeller = labeller(region = region.labs))  #kodas perrašyti "facet" pavadinimus
 ```
-
-    ## Warning: Removed 8 rows containing missing values (geom_point).
 
 ![](basic_visualisation_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
@@ -140,7 +138,8 @@ europa %>%
     panel.background = element_rect(fill = "white", colour = "white", size = 0.5, linetype = "solid"), 
     axis.title.x=element_blank(),
     axis.text.x=element_blank(),
-    axis.ticks.x=element_blank(),axis.title.y=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
     axis.text.y=element_blank(),
     axis.ticks.y=element_blank())+
     theme(legend.title=element_blank())  

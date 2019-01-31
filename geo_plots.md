@@ -58,7 +58,7 @@ centroids1 <- apyl %>%
 Vizualinių ir skaitinių duomenų sujungimas
 ------------------------------------------
 
-Skaitiniai duomenys yra LT ir LT1 dataframes. LT rodikliai buvo renkami 2001-20017 m, o LT1 renkami 2014-2017m.
+Skaitiniai duomenys yra LT ir LT1 data frames. LT rodikliai buvo renkami 2001-20017 m, o LT1 renkami 2014-2017m.
 
 LT data frame yra šie rodikliai:
 
@@ -119,7 +119,7 @@ pvz1<-zemelapisaplLT%>%filter(metai==2017)
 pvz2<-zemelapissavivLT%>%filter(metai==2017)
 ```
 
-Pavaizduosime skyrybų dažnumą 2017 m.pagal apylinkes
+Pavaizduosime skyrybų dažnumą 2017 metais pagal apylinkes
 
 ``` r
 ggplot(pvz1)  +
@@ -139,10 +139,11 @@ ggplot(pvz1)  +
 
 ![](geo_plots_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
-Kaip skyrybos keitės apylinkėse skirtingais metais?
+Kaip skyrybų dažnumas keitėsi apylinkėse?
 
 ``` r
-ggplot(zemelapisaplLT)  +
+zemelapisaplLT%>%filter(!is.na(metai))%>%
+ggplot()  +
   geom_sf(aes(fill = istuokos))  + 
   geom_text(aes(X, Y, label = regionas), data = centroidsapl, size = 1.5, color = 'black')+
   facet_wrap(~metai)+
@@ -159,7 +160,7 @@ ggplot(zemelapisaplLT)  +
 
 ![](geo_plots_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-Tuomet pavaizduosime skyrybų dažnumą 2017 m.pagal savivaldybes
+Tuomet pavaizduosime skyrybų dažnumą 2017 metais pagal savivaldybes
 
 ``` r
 ggplot(pvz2)  +
@@ -178,7 +179,12 @@ ggplot(pvz2)  +
 
 ![](geo_plots_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
-p.s. spalvų variantai žemėlapiams: scale\_fill\_viridis() scale\_fill\_viridis(option = "inferno") scale\_fill\_viridis(option = "cividis") scale\_fill\_gradient(low='gray80', high='midnightblue')
+p.s. spalvų variantai žemėlapiams:
+
+-   scale\_fill\_viridis()
+-   scale\_fill\_viridis(option = "inferno")
+-   scale\_fill\_viridis(option = "cividis")
+-   scale\_fill\_gradient(low='gray80', high='midnightblue')
 
 žemėlapio kaip korio, vaizdavimas
 ---------------------------------
@@ -198,7 +204,7 @@ clean <- function(shape) {
 df_hex_clean<- clean(df_hex)
 ```
 
-Vaizdavimas:
+Vaizdavimas
 
 ``` r
 ggplot(df_hex_clean) +
@@ -211,7 +217,7 @@ ggplot(df_hex_clean) +
 
 ![](geo_plots_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
-Apylinkėms duomenys:
+Duomenys apylinkėms
 
 ``` r
 tmp<-as(pvz1, 'Spatial')
@@ -226,7 +232,7 @@ clean <- function(shape) {
 df_hex_clean<- clean(df_hex)
 ```
 
-Vaizdavimas:
+Vaizdavimas
 
 ``` r
 ggplot(df_hex_clean) +
@@ -245,11 +251,11 @@ Vafliaus grafikas
 Duomenų paruošimas. Pažiūrėsim, kiek vaikų nesimokė mokyklose 2017 metais pagal apylinkes
 
 ``` r
-vaflius<-LT1%>%filter(metai==2017, ID %in% c("62":"71"))
+vaflius<-LT1%>%filter(metai=="2017", ID %in% c("62":"71"))
 vafliusproc <- vaflius$vaikai_nesimokantys_mok
 names(vafliusproc) <- vaflius$regionas
 ```
 
-Vaizdavimas:
+Vaizdavimas
 
 ![](geo_plots_files/figure-markdown_github/pressure-1.png)

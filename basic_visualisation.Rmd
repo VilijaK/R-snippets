@@ -42,22 +42,22 @@ Duomenų atvaizdavimas su ggplot užima daug laiko. Jei prireikia greičio, gali
 
 esquisser()       funkcija paleidžia interaktyvų langą, kuriame formuojamas grafikas.
 
-Jei grafikas jau sudarytas ggplot2 pagalba, tačiau norima patobulinti jo apipavidalininimą, galima išviesti ggedit funkciją.
+Jei grafikas jau sudarytas ggplot2 pagalba, tačiau norima patobulinti jo apipavidalinimą, galima iškviesti ggedit funkciją.
 
 Pvz.:
 
 ggedit(grafikas)
 
 Toliau tęsime su ggplot.
-Pavaizduosime Human Freedom Index duomenis. Pažiūresime, kaip Europos šalyse yra įvertintas valstybinio aparato efektyvumas.
-Šiais grafikais iliustruosime pagrindinius grafiko nuastatymus.
+Pavaizduosime Human Freedom Index duomenis. Pažiūrėsime, kaip Europos šalyse yra įvertintas valstybinio aparato efektyvumas.
+Šiais grafikais iliustruosime pagrindinius grafiko nustatymus.
 
 
 
 ## Kaip keisti pavadinimus?
 
 
-```{r, fig.width=14}
+```{r warning = FALSE, fig.width=14}
 region.labs <- c("Rytų Europa", "Vakarų Europa")                       #kodas perrašyti "facet" pavadinimus
 names(region.labs) <- c("Eastern Europe", "Western Europe")
 
@@ -66,7 +66,7 @@ ggplot(europa,
            y = ef_government,
            color=reorder(countries, ef_government))) +                 #reorder naudojamas susikirstymui
        geom_point(size=2) +
-       labs(title = "Valstybinio aparato efektyvumas..?",              #pavadinimai, kai be pavadinimo = NULL
+       labs(title = "Valstybinio aparato efektyvumas",              #pavadinimai, kai be pavadinimo = NULL
            x = NULL,
            y = "Valstybinio aparato efektyvumas",
            caption = "*didesnis įvertis atspindi daugiau laisvės",
@@ -144,7 +144,8 @@ europa %>%
     panel.background = element_rect(fill = "white", colour = "white", size = 0.5, linetype = "solid"), 
     axis.title.x=element_blank(),
     axis.text.x=element_blank(),
-    axis.ticks.x=element_blank(),axis.title.y=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
     axis.text.y=element_blank(),
     axis.ticks.y=element_blank())+
     theme(legend.title=element_blank())  
