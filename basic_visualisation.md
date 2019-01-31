@@ -1,7 +1,10 @@
 Duomenų vaizdavimas - pagrindai
 ================
 
-\`\`\` \#\# duomenų pakrovimas
+\`\`\`
+
+Duomenų pakrovimas
+------------------
 
 ``` r
 source("tools/human_freedom_GINI_duomenys.R")
@@ -57,7 +60,7 @@ ggplot(europa,
        aes(x = year,
            y = ef_government,
            color=reorder(countries, ef_government))) +                 #reorder naudojamas susikirstymui
-       geom_point(size=3) +
+       geom_point(size=2) +
        labs(title = "Valstybinio aparato efektyvumas..?",              #pavadinimai, kai be pavadinimo = NULL
            x = NULL,
            y = "Valstybinio aparato efektyvumas",
@@ -65,7 +68,7 @@ ggplot(europa,
            color="Šalys")+
        theme_classic()+                                                #šviesus fonas, kuriame lieka ašys
        ylim(1, 9)+                                                     #I būdas, nurodyti ašies ribas
-       scale_x_continuous(breaks = seq(2008, 2016, 1))+                #II būdas, nurodyti ašies ribas ir grafos dydį
+       scale_x_continuous(breaks = seq(2008, 2016, 2))+                #II būdas, nurodyti ašies ribas ir grafos dydį
        geom_hline(yintercept=5, color="black", size=1, alpha=0.2) +    #tiesė, ketanti y ašį
        geom_vline(xintercept=2016, color="black", size=1, alpha=0.2)+  #tiesė, kertanti x ašį
        facet_wrap(~region, labeller = labeller(region = region.labs))  #kodas perrašyti "facet" pavadinimus
@@ -132,8 +135,7 @@ europa %>%
   geom_point(size=3) +
   labs(title = "Valstybinio aparato efektyvumas Rytų Europoje",
        x = NULL,
-       y = "Valstybinio aparato efektyvumas",
-       caption = "*didesnis įvertis atspindi daugiau laisvės")+
+       y = "Valstybinio aparato efektyvumas")+
   theme(
     panel.background = element_rect(fill = "white", colour = "white", size = 0.5, linetype = "solid"), 
     axis.title.x=element_blank(),
