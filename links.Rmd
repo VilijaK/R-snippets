@@ -1,0 +1,110 @@
+---
+title: "Ryšiai"
+output: github_document
+---
+
+## Duomenų pakrovimas
+
+```{r message=FALSE}
+source("tools/human_freedom_GINI_duomenys.R")
+res<-load_europe("data")
+europa = res$europa
+gini = res$gini
+```
+
+
+Grafikams naudosime Human Freedom Index ir GINI duomenis.
+
+## Bibliotekos
+
+```{r message=FALSE}
+
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+
+library(RColorBrewer)
+library(reshape2)
+library(readr)
+#library(gglabeller)
+library(scales)
+library(ggthemes)
+library(wesanderson)
+library(viridis)
+library(ggsci)
+library(ggrepel)
+
+library(corrplot)
+library(corrr)
+library(GGally)
+
+```
+
+
+## Koreliacijos matrica
+
+Paruošiame duomenis
+
+```{r warning = FALSE}
+eu<- filter(europa, year==2015)
+eu<- select(eu, GINI =indeksas,  Teisinis_reguliavimas = pf_rol,
+            Saugumas  = pf_ss, Pilietine_visuomene= pf_association,
+            Media_laisve =pf_expression, Asmeniniai_santykiai= pf_identity,
+            Valstybinis_aparatas= ef_government, Nuosavybes_teise=ef_legal,
+            Gera_pinigu_politika = ef_money, Verslo_reguliavimas = ef_regulation,
+            Asmenine_laisve = pf_score, Ekonomine_laisve=ef_score, Zmoniu_laisve=hf_score)
+correlation_matrix <- cor(eu, use="pairwise.complete.obs")
+```
+
+1 Vizualizacija
+
+```{r warning = FALSE, fig.width=14, fig.height=10}
+corrplot(correlation_matrix,
+         method = "square",
+         type = "upper",
+         tl.col = "black",
+         col = brewer.pal(n = 5, name = "RdYlBu"))
+```
+
+2 Vizualizacija
+
+```{r warning = FALSE, fig.width=14, fig.height=10}
+corrplot.mixed(correlation_matrix, tl.col = "black")
+
+```
+
+
+Duomenys
+
+```{r}
+correlate(eu)
+melted_cormat <- melt(correlation_matrix)
+head(melted_cormat)
+
+```
+
+
+3 Vizualizacija
+
+```{r warning = FALSE, fig.width=14, fig.height=10}
+eu %>% correlate() %>% network_plot(min_cor=0.2)
+network_plot(correlate(eu), min_cor=0.2)
+```
+
+4 Vizualizacija
+
+```{r warning = FALSE, fig.width=14, fig.height=10}
+ggpairs(eu)
+
+```
+
+
+5 Vizualizacija
+
+```{r warning = FALSE, fig.width=14, fig.height=10}
+ggcorr(eu, method = c("pairwise", "spearman", low = "steelblue", mid = "white", high = "darkred"))
+
+```
+
+
+
